@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="memcachedMasterFactory" class="io.sample.memcached.impl.MemcachedMasterFactory" init-method="init">
+		<property name="initConn" value="5" />
+		<property name="minConn" value="5" />
+		<property name="maxConn" value="50" />
+		<property name="maintSleep" value="30" />
+		<property name="nagle" value="true" />
+		<property name="socketTO" value="1000" />
+		<property name="socketConnectTO" value="2000" />
+		<property name="aliveCheck" value="true" />
+		<property name="maxIdle" value="10000" />
+		<property name="maxBusyTime" value="3000" />
+		<property name="strMemcachedIp" value="${memcached.master.ip}" />
+    </bean>
+
+    <bean id="memcachedSlaveFactory" class="io.sample.memcached.impl.MemcachedSlaveFactory" init-method="init">
+		<property name="initConn" value="5" />
+		<property name="minConn" value="5" />
+		<property name="maxConn" value="50" />
+		<property name="maintSleep" value="30" />
+		<property name="nagle" value="true" />
+		<property name="socketTO" value="1000" />
+		<property name="socketConnectTO" value="2000" />
+		<property name="aliveCheck" value="true" />
+		<property name="maxIdle" value="10000" />
+		<property name="maxBusyTime" value="3000" />
+		<property name="strMemcachedIp" value="${memcached.slave.ip}" />
+    </bean>
+
+	<bean id="memcachedAccessManager" class="io.sample.memcached.MemcachedAccessManager" />
+
+</beans>
